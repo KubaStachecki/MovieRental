@@ -1,10 +1,12 @@
 package com.kuba;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Customer {
 
+    public static final String CSV_SEPARATOR = ",";
     private String lastName;
     private String firstName;
     private String pesel;
@@ -24,6 +26,54 @@ public class Customer {
         this.lastName = lastName;
         this.city = city;
     }
+
+
+    public Customer(String csv) {
+
+
+        String[] csvSplit = csv.split(",");
+
+        this.date = date;
+        this.pesel = pesel;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.id = id;
+
+        id = Integer.parseInt(csvSplit[0]);
+        pesel = csvSplit[1];
+        firstName = csvSplit[2];
+        lastName = csvSplit[3];
+        city = csvSplit[4];
+        date =  csvSplit[5];
+
+    }
+
+    public String toCVSString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(id);
+        sb.append(CSV_SEPARATOR);
+        sb.append(pesel);
+        sb.append(CSV_SEPARATOR);
+        sb.append(firstName);
+        sb.append(CSV_SEPARATOR);
+        sb.append(lastName);
+        sb.append(CSV_SEPARATOR);
+        sb.append(city);
+        sb.append(CSV_SEPARATOR);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(date);
+        sb.append(formattedDate);
+
+        return sb.toString();
+
+    }
+
+
+    //______________________________________
 
     public Date getDate() {
         return date;
@@ -68,7 +118,6 @@ public class Customer {
     public void setCity(String city) {
         this.city = city;
     }
-
 
 
 }
