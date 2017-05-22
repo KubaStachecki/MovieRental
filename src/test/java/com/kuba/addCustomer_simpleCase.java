@@ -53,4 +53,26 @@ public class addCustomer_simpleCase {
 
     }
 
+
+    @Test
+    public void Customer_String_case(){
+
+        Date testData = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        Customer customer1 = new Customer("1234", "Kowalski", "Janusz", "Warszawa", testData);
+
+        String text = "0,1234,Kowalski,Janusz,Warszawa," + sf.format(testData);
+
+
+
+        assertEquals(customer1.toCVSString(), text);
+
+
+
+
+
+    }
+
 }

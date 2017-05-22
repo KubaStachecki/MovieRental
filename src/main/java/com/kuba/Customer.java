@@ -1,6 +1,7 @@
 package com.kuba;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ public class Customer {
     }
 
 
-    public Customer(String csv) {
+    public Customer(String csv) throws ParseException {
 
 
         String[] csvSplit = csv.split(",");
@@ -45,7 +46,10 @@ public class Customer {
         firstName = csvSplit[2];
         lastName = csvSplit[3];
         city = csvSplit[4];
-        date =  csvSplit[5];
+
+        String dateS =  csvSplit[5];
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        this.date = sdf2.parse(dateS);
 
     }
 
