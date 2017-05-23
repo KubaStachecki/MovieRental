@@ -5,6 +5,7 @@ import com.kuba.exeptions.NullCustomerExeption;
 import com.kuba.exeptions.NullMovieExeption;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MovieRental {
@@ -53,6 +54,21 @@ public class MovieRental {
         rents.add(rent);
 
     }
+
+
+    public void printAllData() {
+
+
+        System.out.println("____CUSTOMERS___");
+        System.out.println(Arrays.toString(customers.toArray()));
+        System.out.println("___ MOVIES ____");
+        System.out.println(Arrays.toString(movies.toArray()));
+        System.out.println("___RENTS___");
+        System.out.println(Arrays.toString(rents.toArray()));
+
+
+    }
+
 
 
 
