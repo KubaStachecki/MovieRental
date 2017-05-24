@@ -32,12 +32,12 @@ public class DataFileWriter {
 //        writeCustomersToFile("Customers.csv",test1);
     }
 
-    public static void writeCustomersToFile(String fileName, List<Customer> customers) {
+    public static void writeCustomersToFile(String fileName, List<? extends CsvObject> customers) {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
 
-            for (Customer customer : customers) {
-                fileWriter.write(customer.toCVSString() + System.lineSeparator());
+            for (CsvObject customer : customers) {
+             //   fileWriter.write(customer.toCVSString() + System.lineSeparator());
                 // prawie to samo co:
 //				fileWriter.write(customer.toCSVString() + "\n");
             }

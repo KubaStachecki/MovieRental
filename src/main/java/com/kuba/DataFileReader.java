@@ -16,31 +16,37 @@ import java.util.List;
  */
 public class DataFileReader {
 
-    public static void readCustomersFromFile(String fileName){
+    public static List<Customer> readCustomersFromFile(String fileName) throws IOException {
 
         List<Customer> customers = new ArrayList<>();
 
 
-        try {
+
             List<String> fileLines = Files.readLines(new File(fileName), Charsets.UTF_8);
 
-            for(String line : fileLines){
+            for (String line : fileLines) {
 
-                Customer customer = new Customer(line);
+                Customer customer = null;
+                try {
+
+
+                    customer = new Customer(line);
+
+
+
+                } catch (ParseException e) {
+                    throw new IOException();
+                }
                 customers.add(customer);
 
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+
+        return customers;
 
 
     }
-
-
 
 
 }

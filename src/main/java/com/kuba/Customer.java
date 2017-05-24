@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Customer {
+public class Customer implements CsvObject {
 
     public static final String CSV_SEPARATOR = ",";
     private String lastName;
@@ -53,6 +53,8 @@ public class Customer {
 
     }
 
+
+
     public String toCVSString() {
 
         StringBuilder sb = new StringBuilder();
@@ -77,7 +79,20 @@ public class Customer {
     }
 
 
-    //______________________________________
+    //______________________________________//
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", city='" + city + '\'' +
+                ", date=" + date +
+                ", id=" + id +
+                ", nextId=" + nextId +
+                '}';
+    }
 
     public Date getDate() {
         return date;

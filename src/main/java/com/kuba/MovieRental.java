@@ -4,6 +4,7 @@ import com.kuba.exeptions.MovieAlreadyExistsExeption;
 import com.kuba.exeptions.NullCustomerExeption;
 import com.kuba.exeptions.NullMovieExeption;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,9 +17,19 @@ public class MovieRental {
 
     public MovieRental() {
 
-        this.customers = new ArrayList<>();
+        try {
+            this.customers = DataFileReader.readCustomersFromFile("Customers.csv");
+        } catch (IOException e) {
+            System.err.println("Blad wczytywania customerow z pliku - plik pusty");
+            this.customers = new ArrayList<>();
+        }
         this.rents = new ArrayList<>();
         this.movies = new ArrayList<>();
+
+
+
+
+
     }
 
     public MovieRental(List<Customer> customers, List<Rent> rents, List<Movie> movies) {

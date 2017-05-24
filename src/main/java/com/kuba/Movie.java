@@ -1,8 +1,10 @@
 package com.kuba;
 
 
-public class Movie {
+public class Movie implements CsvObject {
     private static int nextId = 0;
+
+
     private int id;
     private String title;
     private String genre;
@@ -43,4 +45,15 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
 }
