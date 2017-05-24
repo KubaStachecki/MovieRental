@@ -6,6 +6,8 @@ package com.kuba;
 public interface CsvObject {
 
 
+        String toCSVString();
+
 
 
 

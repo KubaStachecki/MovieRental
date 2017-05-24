@@ -1,11 +1,8 @@
 package com.kuba;
 
-import com.kuba.exeptions.MovieAlreadyExistsExeption;
-import com.kuba.exeptions.NullCustomerExeption;
-import com.kuba.exeptions.NullMovieExeption;
+import com.kuba.exeptions.MovieAlreadyExistsException;
+import com.kuba.exeptions.NullMovieException;
 import org.junit.Test;
-
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +12,7 @@ import static org.junit.Assert.*;
 public class MovieRentalTest_simple {
 
     @Test
-    public void CustomerAdd_Simple() throws NullMovieExeption, MovieAlreadyExistsExeption {
+    public void CustomerAdd_Simple() throws NullMovieException, MovieAlreadyExistsException {
 
         //giv
 
@@ -32,8 +29,8 @@ public class MovieRentalTest_simple {
 
     }
 
-        @Test(expected = MovieAlreadyExistsExeption.class)
-        public void CustomerAdd_Double() throws NullMovieExeption, MovieAlreadyExistsExeption {
+        @Test(expected = MovieAlreadyExistsException.class)
+        public void CustomerAdd_Double() throws NullMovieException, MovieAlreadyExistsException {
 
             //giv
 

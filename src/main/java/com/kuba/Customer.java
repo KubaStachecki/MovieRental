@@ -1,21 +1,22 @@
 package com.kuba;
 
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Customer implements CsvObject {
-
     public static final String CSV_SEPARATOR = ",";
-    private String lastName;
-    private String firstName;
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static int nextId = 0;
+
+    private int id;
     private String pesel;
+    private String firstName;
+    private String lastName;
     private String city;
     private Date date;
-    private int id;
-    private int nextId;
-
 
     public Customer(String pesel, String firstName, String lastName, String city, Date date) {
         id = nextId;
@@ -28,69 +29,58 @@ public class Customer implements CsvObject {
         this.city = city;
     }
 
+    // "0,123123213,Adam,Kowalski,Wrocław,2015-01-02"
+    public Customer(String text) throws ParseException {
+        String[] split = text.split(CSV_SEPARATOR);
 
-    public Customer(String csv) throws ParseException {
+        this.id = Integer.parseInt(split[0]);
+        if (nextId < this.id + 1) {
+            nextId = this.id + 1;
+        }
 
+        this.pesel = split[1];
+        this.firstName = split[2];
+        this.lastName = split[3];
+        this.city = split[4];
 
-        String[] csvSplit = csv.split(",");
-
-        this.date = date;
-        this.pesel = pesel;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.id = id;
-
-        id = Integer.parseInt(csvSplit[0]);
-        pesel = csvSplit[1];
-        firstName = csvSplit[2];
-        lastName = csvSplit[3];
-        city = csvSplit[4];
-
-        String dateS =  csvSplit[5];
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-        this.date = sdf2.parse(dateS);
-
+        String dateString = split[5];
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
+        this.date = simpleDateFormat.parse(dateString);
     }
 
+    public static void setNextId(int nextId) {
+        Customer.nextId = nextId;
+    }
 
+    public String toCSVString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(id);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(pesel);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(firstName);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(lastName);
+        stringBuilder.append(CSV_SEPARATOR);
+        stringBuilder.append(city);
+        stringBuilder.append(CSV_SEPARATOR);
 
-    public String toCVSString() {
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(id);
-        sb.append(CSV_SEPARATOR);
-        sb.append(pesel);
-        sb.append(CSV_SEPARATOR);
-        sb.append(firstName);
-        sb.append(CSV_SEPARATOR);
-        sb.append(lastName);
-        sb.append(CSV_SEPARATOR);
-        sb.append(city);
-        sb.append(CSV_SEPARATOR);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         String formattedDate = simpleDateFormat.format(date);
-        sb.append(formattedDate);
+        stringBuilder.append(formattedDate);
 
-        return sb.toString();
-
+        return stringBuilder.toString();
     }
-
-
-    //______________________________________//
 
     @Override
     public String toString() {
         return "Customer{" +
-                "lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
+                "id=" + id +
                 ", pesel='" + pesel + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 ", date=" + date +
-                ", id=" + id +
-                ", nextId=" + nextId +
                 '}';
     }
 
@@ -137,6 +127,4 @@ public class Customer implements CsvObject {
     public void setCity(String city) {
         this.city = city;
     }
-
-
 }

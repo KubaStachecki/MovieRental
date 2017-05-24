@@ -11,42 +11,23 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by RENT on 2017-05-23.
- */
-public class DataFileReader {
+public class DataFileReader<T> {
+    private MyFactory<T> factory;
 
-    public static List<Customer> readCustomersFromFile(String fileName) throws IOException {
-
-        List<Customer> customers = new ArrayList<>();
-
-
-
-            List<String> fileLines = Files.readLines(new File(fileName), Charsets.UTF_8);
-
-            for (String line : fileLines) {
-
-                Customer customer = null;
-                try {
-
-
-                    customer = new Customer(line);
-
-
-
-                } catch (ParseException e) {
-                    throw new IOException();
-                }
-                customers.add(customer);
-
-            }
-
-
-
-        return customers;
-
-
+    public DataFileReader(MyFactory<T> factory) {
+        this.factory = factory;
     }
 
+    public List<T> readFromFile(String fileName) throws IOException {
+        List<T> returnList = new ArrayList<>();
 
+        List<String> fileLines = Files.readLines(new File(fileName), Charsets.UTF_8);
+
+        for (String line : fileLines) {
+            T object = factory.create(line);
+            returnList.add(object);
+        }
+
+        return returnList;
+    }
 }

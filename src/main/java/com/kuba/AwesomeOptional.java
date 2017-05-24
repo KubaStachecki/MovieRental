@@ -1,20 +1,29 @@
 package com.kuba;
 
 
-public class AwesomeOptional {
+public class AwesomeOptional<T> {
 
-    Object object;
+    private T object;
 
-    public AwesomeOptional(Object object) {
+    public AwesomeOptional(T object) {
         this.object = object;
     }
 
-    public boolean isPresent(){
+    public static void main(String[] args) {
 
+        String s = "ABC";
+        AwesomeOptional<String> stringAwesomeOptional = new AwesomeOptional<>("ABC");
+        String object = stringAwesomeOptional.getObject();
+
+        AwesomeOptional<Integer> integerAwesomeOptional = new AwesomeOptional<>(1);
+        Integer object1 = integerAwesomeOptional.getObject();
+    }
+
+    public boolean isPresent() {
         return object != null;
     }
 
-    public Object getObject() {
+    public T getObject() {
         return object;
     }
 }
