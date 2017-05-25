@@ -2,6 +2,7 @@ package com.kuba;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -35,13 +36,17 @@ public class RentalGUI extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(600, 400);
+      //  setSize(600, 400);
         setLayout(null);
 
 
         showCustomers();
         showMovies();
         showRents();
+
+JScrollPane csp = new JScrollPane(customerJlist);
+csp.setPreferredSize(new Dimension(300,300));
+
 
 
         customerJlist.setSize(300, 300);
