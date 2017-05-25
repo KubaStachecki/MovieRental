@@ -10,7 +10,6 @@ public class codewarTest {
 
     public static void main(String[] args) {
 
-        String dna = "ATTCGD";
 
 
 

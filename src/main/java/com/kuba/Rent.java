@@ -45,6 +45,15 @@ public class Rent implements CsvObject {
         this.date = new Date();
     }
 
+    @Override
+    public String toString() {
+        return "Rent{" +
+                "customerId=" + customerId +
+                ", movieId=" + movieId +
+                ", date=" + date +
+                '}';
+    }
+
     public int getCustomerId() {
         return customerId;
     }

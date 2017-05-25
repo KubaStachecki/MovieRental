@@ -3,14 +3,15 @@ package com.kuba;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.List;
 
 public class RentalGUI extends JFrame {
 
-    private MovieRental rental1;
+    public MovieRental rental1;
     private List<Customer> customers;
-    private JList customerJlist = new JList<>();
+    private JList<Customer> customerJlist = new JList<>();
+    private JList movieJlist = new JList<>();
+    private JList rentJlist = new JList<>();
 
 
     public static void main(String[] args) {
@@ -39,14 +40,26 @@ public class RentalGUI extends JFrame {
 
 
         showCustomers();
+        showMovies();
+        showRents();
 
 
-        customerJlist.setSize(800, 300);
-        customerJlist.setLocation(0, 0);
+        customerJlist.setSize(300, 300);
+        customerJlist.setLocation(1, 0);
         add(customerJlist);
 
+        movieJlist.setSize(300, 300);
+        movieJlist.setLocation(320, 0);
+        add(movieJlist);
 
-        JButton btnShow = new JButton("Odswiez liste customerow");
+        rentJlist.setSize(300, 300);
+        rentJlist.setLocation(640, 0);
+        add(rentJlist);
+
+        RentalGUI rentalGUI = this;
+
+
+        JButton btnShow = new JButton("Odswiez listy");
         btnShow.setSize(200, 50);
         btnShow.setLocation(0, 350);
         add(btnShow);
@@ -91,16 +104,16 @@ public class RentalGUI extends JFrame {
 //        txtPower.setLocation(300, 350);
 //        add(txtPower);
 //
-//        JButton btnCreateCar = new JButton("Stwórz nowy");
-//        btnCreateCar.setSize(200, 50);
-//        btnCreateCar.setLocation(400, 400);
-//        add(btnCreateCar);
+        JButton btnCreateCustomer = new JButton("Dodaj Customera");
+        btnCreateCustomer.setSize(200, 50);
+        btnCreateCustomer.setLocation(400, 400);
+        add(btnCreateCustomer);
 //
-//        JButton btnSaveChanges = new JButton("Zapisz zmiany");
-//        btnSaveChanges.setSize(200, 50);
-//        btnSaveChanges.setLocation(400, 500);
-//        add(btnSaveChanges);
-//
+        JButton changeCustomer = new JButton("Edytuj Klienta");
+        changeCustomer.setSize(200, 50);
+        changeCustomer.setLocation(400, 500);
+        add(changeCustomer);
+
 //        JButton btnSaveToFile = new JButton("Zapisz do pliku");
 //        btnSaveToFile.setSize(200, 50);
 //        btnSaveToFile.setLocation(0, 400);
@@ -130,12 +143,20 @@ public class RentalGUI extends JFrame {
 //            }
 //        });
 //
-//        btnSaveToFile.addActionListener(new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//            }
-//        });
+        changeCustomer.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Customer selectedCustomer =  customerJlist.getSelectedValue();
+
+                if (selectedCustomer == null) {
+                    JOptionPane.showMessageDialog(changeCustomer, "zaden nie jest zaznaczony");
+                }
+
+                AddEditCustomerWindow add = new AddEditCustomerWindow(rental1, rentalGUI, selectedCustomer);
+
+            }
+            });
 //
 //
 //        btnSaveChanges.addActionListener(new AbstractAction() {
@@ -146,37 +167,64 @@ public class RentalGUI extends JFrame {
 //
 //            }
 //        });
-//
-//        btnCreateCar.addActionListener(new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//            }
-//        });
-//
-//
-//
-        btnShow.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showCustomers();
 
-            }
-        });
+        btnCreateCustomer.addActionListener(new
 
-        repaint();
-    }
+            AbstractAction() {
+                @Override
+                public void actionPerformed (ActionEvent e){
 
-    private void showCustomers() {
+                    AddEditCustomerWindow add = new AddEditCustomerWindow(rental1, rentalGUI, null);
+
+                }
+            });
+//
+//
+
+        btnShow.addActionListener(new
+
+            AbstractAction() {
+                @Override
+                public void actionPerformed (ActionEvent e){
+                    showCustomers();
+                    showMovies();
+                    showRents();
+
+                }
+            });
+
+            repaint();
+        }
+
+    public void showCustomers() {
         List<Customer> customers2 = rental1.getCustomers();
 
         Customer[] customersArray = customers2.toArray(new Customer[customers2.size()]);
 
-        customerJlist = new JList<>();
+     //  JList<Customer> customerJlist = new JList<>();
         customerJlist.setListData(customersArray);
 
 
-        //   customerJList = new JList(customers);
+    }
+
+    private void showMovies() {
+        List<Movie> movies2 = rental1.getMovies();
+
+        Movie[] moviesArray = movies2.toArray(new Movie[movies2.size()]);
+
+     //   movieJlist = new JList<>();
+        movieJlist.setListData(moviesArray);
+
+
+    }
+
+    private void showRents() {
+        List<Rent> rents2 = rental1.getRents();
+
+        Rent[] rentsArray = rents2.toArray(new Rent[rents2.size()]);
+
+      //  rentJlist = new JList<>();
+        rentJlist.setListData(rentsArray);
 
 
     }
